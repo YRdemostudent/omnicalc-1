@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
   
   def calculate_square
   
+    @num = params.fetch("user").to_i
+    @square_of_num = @num ** 2
+
     render({:template => "calculation_templates/square_results.html.erb"})
   end 
 end
