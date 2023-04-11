@@ -28,4 +28,9 @@ class ApplicationController < ActionController::Base
     render({:template => "calculation_templates/payment_new.html.erb"})
   end 
 
+  def payment_results
+   
+    render({:template => "calculation_templates/payment_results.html.erb"})
+  end 
+
 end
