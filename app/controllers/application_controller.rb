@@ -22,4 +22,10 @@ class ApplicationController < ActionController::Base
     @results = Math.sqrt(@num)
     render({:template => "calculation_templates/square_root_results.html.erb"})
   end 
+
+  def payment
+  
+    render({:template => "calculation_templates/payment_new.html.erb"})
+  end 
+
 end
