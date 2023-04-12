@@ -31,12 +31,17 @@ class ApplicationController < ActionController::Base
   def payment_results
     #formula: payment = p * r * (1 + r)^n / ((1 +r)^n-1)
     
-    @num_apr = params.fetch("apr").to_f.round(4)
-    @period_apr = (@num_apr/100)/12
-    @num_years = params.fetch("years_num").to_i
-    @num_prin = params.fetch("pv_num").to_f
+  apr = params.fetch("user_apr").to_f/100.0/12.0
+  @formattedapr=format("%.4f%%",apr*12*100)
+  @years = params.fetch("user_years").to_i
+  monthly= @years * 12
+  principal = params.fetch("user_pv").to_f
+  userpayments = (principal * apr * (1.0 + apr)**  monthly) / ((1.0 + apr) **  monthly - 1.0)
+  
+  @formattedpayment= userpayments.to_s(:currency)
+  @formattedprincipal = principal.to_s(:currency)
 
-    @montlhy_pay = (@period_apr * @num_prin)/(1-(1 + @period_apr) ** (-12 * @num_years))
+    
     render({:template => "calculation_templates/payment_results.html.erb"})
   end 
 
@@ -48,7 +53,7 @@ class ApplicationController < ActionController::Base
   def random_result
     @lower = params.fetch("user_min").to_f
     @upper = params.fetch("user_max").to_f
-    @result = rand(@upper..@upper)
+    @result = rand(@lower..@upper)
   render({:template => "calculation_templates/random_results.html.erb"})
   end 
 end
