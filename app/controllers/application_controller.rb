@@ -29,8 +29,16 @@ class ApplicationController < ActionController::Base
   end 
 
   def payment_results
-   
+    #formula: payment = p * r * (1 + r)^n / ((1 +r)^n-1)
+    
+    @num_apr = params.fetch("apr").to_f.round(4)
+    @period_apr = (@num_apr/100)/12
+    @num_years = params.fetch("years_num").to_i
+    @num_prin = params.fetch("pv_num").to_f
+
+    @montlhy_pay = (@period_apr * @num_prin)/(1-(1 + @period_apr) ** (-12 * @num_years))
     render({:template => "calculation_templates/payment_results.html.erb"})
   end 
 
+  
 end
