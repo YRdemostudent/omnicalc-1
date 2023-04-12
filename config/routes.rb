@@ -8,5 +8,6 @@ get("/square_root/results", {:controller => "application", :action => "calculate
 get("/payment/new", {:controller => "application", :action => "payment"})
 get("/payment/results", {:controller => "application", :action => "payment_results"})
 
-#get("/random/new", {:controller => "application", :action => ""})
+get("/random/new", {:controller => "application", :action => "random_new"})
+get("/random/results", {:controller => "application", :action => "random_result"})
 end
